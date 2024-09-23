@@ -18,18 +18,4 @@ class UserSerializer(serializers.ModelSerializer):
 
         return user
 
-    def update(self, instanse, validated_data):
-        instanse.username = validated_data.get('username', instanse.username)
-        instanse.email = validated_data.get('email', instanse.email)
 
-        if 'password' in validated_data:
-            instanse.set_password(validated_data['password'])
-
-        instanse.save()
-
-        return instanse
-
-
-class ChangePasswordSerializer(serializers.ModelSerializer):
-    old_password = serializers.CharField(write_only=True)
-    new_password = serializers.CharField(write_only=True, min_length=8)
